@@ -56,12 +56,14 @@ post '/callback' do
               {
                 type: 'postback',
                 label: 'Bob',
-                data: 'press Bob'
+                data: 'press Bob',
+                text:'press Bob'
               },
               {
                 type: 'postback',
                 label: 'Kevin',
-                data: 'press Kevin'
+                data: 'press Kevin',
+                text:'press Kevin'
               }
             ]
           }
