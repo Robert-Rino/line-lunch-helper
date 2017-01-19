@@ -46,22 +46,25 @@ post '/callback' do
         message = {
           type: 'template',
           altText: 'this is a button template',
-          thumbnailImageUrl:
-        'https://cdn2.iconfinder.com/data/icons/despicable-me-2-minions/128/Curious-Minion-Icon.png',
-          title: 'menu',
-          text: 'please select',
-          actions: [
-            {
-              type: 'postback',
-              label: 'Bob',
-              data: 'press Bob'
-            },
-            {
-              type: 'postback',
-              label: 'Kevin',
-              data: 'press Kevin'
-            }
-          ]
+          template: {
+            type: 'buttons',
+            thumbnailImageUrl:
+          'https://cdn2.iconfinder.com/data/icons/despicable-me-2-minions/128/Curious-Minion-Icon.png',
+            title: 'menu',
+            text: 'please select',
+            actions: [
+              {
+                type: 'postback',
+                label: 'Bob',
+                data: 'press Bob'
+              },
+              {
+                type: 'postback',
+                label: 'Kevin',
+                data: 'press Kevin'
+              }
+            ]
+          }
         }
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
