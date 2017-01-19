@@ -39,40 +39,10 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if vent.message['text'] == 'buttom'
-          message = {
-            type: "template",
-            altText: "this is a buttons template",
-            template: {
-                type: "buttons",
-                thumbnailImageUrl: "https://example.com/bot/images/image.jpg",
-                title: "Menu",
-                text: "Please select",
-                actions: [
-                    {
-                      type: "postback",
-                      label: "Buy",
-                      data: "action=buy&itemid=123"
-                    },
-                    {
-                      type: "postback",
-                      label: "Add to cart",
-                      data: "action=add&itemid=123"
-                    },
-                    {
-                      type: "uri",
-                      label: "View detail",
-                      uri: "http://example.com/page/123"
-                    }
-                ]
-            }
-          }
-        else
-          message = {
-            type: 'text',
-            text: event.message['text']
-          }
-        end
+        message = {
+          type: 'text',
+          text: event.message['text']
+        }
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
