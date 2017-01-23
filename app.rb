@@ -35,6 +35,7 @@ post '/callback' do
 
   events = client.parse_events_from(body)
   events.each { |event|
+    puts event.type
     case event
     when Line::Bot::Event::Message
       case event.type
@@ -72,10 +73,6 @@ post '/callback' do
         tf = Tempfile.open("content")
         tf.write(response.body)
       end
-
-    when Line::Bot::Event::MessageType::Postback
-      puts 'im postback'
-
     end
   }
 
