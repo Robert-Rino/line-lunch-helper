@@ -35,10 +35,10 @@ post '/callback' do
 
   events = client.parse_events_from(body)
   events.each { |event|
-    puts event.type
+    puts event.methods
     case event
     when Line::Bot::Event::Message
-      case event.methods
+      case event.type
       when Line::Bot::Event::MessageType::Text
         # message = {
         #   type: 'text',
