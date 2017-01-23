@@ -37,6 +37,7 @@ post '/callback' do
   events.each { |event|
     case event
     when Line::Bot::Event::Message
+      puts event.type
       case event.type
       when Line::Bot::Event::MessageType::Text
         # message = {
@@ -57,13 +58,11 @@ post '/callback' do
                 type: 'postback',
                 label: 'Bob',
                 data: 'press Bob',
-                text:'press Bob'
               },
               {
                 type: 'postback',
                 label: 'Kevin',
                 data: 'press Kevin',
-                text:'press Kevin'
               }
             ]
           }
