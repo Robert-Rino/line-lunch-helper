@@ -37,7 +37,7 @@ post '/callback' do
   events.each { |event|
     case event
     when Line::Bot::Event::Postback
-      puts event.postback.data
+      puts event.methods
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
