@@ -38,7 +38,7 @@ post '/callback' do
     puts event.type
     case event
     when Line::Bot::Event::Message
-      case event.type
+      case event.methods
       when Line::Bot::Event::MessageType::Text
         # message = {
         #   type: 'text',
