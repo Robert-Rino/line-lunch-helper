@@ -38,7 +38,6 @@ post '/callback' do
     case event
     when Line::Bot::Event::Postback
       puts event.postback.data
-    end
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
