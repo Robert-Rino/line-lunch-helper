@@ -72,7 +72,6 @@ post '/callback' do
       #   tf.write(response.body)
       end
     when Line::Bot::Event::Postback
-      p event
 
       payload = JSON.parse(event['postback']['data'])
       message = {
