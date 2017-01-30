@@ -76,7 +76,7 @@ post '/callback' do
       payload = JSON.parse(event['postback']['data'])
       message = {
         type: 'text',
-        text: "謝謝您的回應！ :D"
+        text: '你選擇了 #{payload}'
       }
       client.reply_message(event['replyToken'], message)
       message_payload_string = redis.get payload['id']
