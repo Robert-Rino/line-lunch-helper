@@ -27,7 +27,6 @@ end
 
 post '/callback' do
   body = request.body.read
-  puts 'hello im test'
   signature = request.env['HTTP_X_LINE_SIGNATURE']
   unless client.validate_signature(body, signature)
     error 400 do 'Bad Request' end
@@ -36,8 +35,6 @@ post '/callback' do
   events = client.parse_events_from(body)
   events.each { |event|
     case event
-    when Line::Bot::Event::Postback
-      puts event.methods
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
