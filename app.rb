@@ -66,16 +66,20 @@ post '/callback' do
           }
         }
         client.reply_message(event['replyToken'], message)
-      when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
-        response = client.get_message_content(event.message['id'])
-        tf = Tempfile.open("content")
-        tf.write(response.body)
+      # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
+      #   response = client.get_message_content(event.message['id'])
+      #   tf = Tempfile.open("content")
+      #   tf.write(response.body)
       end
     when Line::Bot::Event::Postback
       p event
 
       payload = JSON.parse(event['postback']['data'])
-      client.reply_message(event['replyToken'], textmsg("謝謝您的回應！ :D"))
+      message = {
+        type: 'text',
+        text: "謝謝您的回應！ :D"
+      }
+      client.reply_message(event['replyToken'], message)
       message_payload_string = redis.get payload['id']
 
     end
