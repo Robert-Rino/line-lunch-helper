@@ -55,12 +55,12 @@ post '/callback' do
               {
                 type: 'postback',
                 label: 'Bob',
-                data: 'press Bob',
+                data: {ans: 'Bob'}.to_json,
               },
               {
                 type: 'postback',
                 label: 'Kevin',
-                data: 'press Kevin',
+                data: {ans: 'Kevin'}.to_json,
               }
             ]
           }
