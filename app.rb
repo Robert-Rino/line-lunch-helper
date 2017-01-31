@@ -48,7 +48,7 @@ post '/callback' do
           text: ''
         }
 
-        menu.each_with_index do |dish, index|
+        @menu.each_with_index do |dish, index|
           message[:text] =+ "#{index}. #{dish} \n"
         end
         # message = {
