@@ -4,6 +4,9 @@ require 'base64'
 require 'line/bot'
 require_relative 'models/configuration'
 
+menu = [{flavor: 'beef', price: 70},
+        {flavor: 'pork', price: 60}]
+
 # Configuration Sharing Web Service
 class ShareConfigurationsAPI < Sinatra::Base
   before do
@@ -38,32 +41,32 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        # message = {
-        #   type: 'text',
-        #   text: event.message['text']
-        # }
         message = {
-          type: 'template',
-          altText: 'this is a button template',
-          template: {
-            type: 'buttons',
-            thumbnailImageUrl:
-          'https://cdn2.iconfinder.com/data/icons/despicable-me-2-minions/128/Curious-Minion-Icon.png',
-            title: 'menu',
-            text: 'please select',
-            actions: [
-              {
-                type: 'postback',
-                label: 'Bob',
-                data: {ans: 'Bob'}.to_json,
-              },
-              {
-                type: 'postback',
-                label: 'Kevin',
-                data: {ans: 'Kevin'}.to_json,
-              }
-            ]
-          }
+          type: 'text',
+          text: "1. line one \n2. line two"
+        }
+        # message = {
+        #   type: 'template',
+        #   altText: 'this is a button template',
+        #   template: {
+        #     type: 'buttons',
+        #     thumbnailImageUrl:
+        #   'https://cdn2.iconfinder.com/data/icons/despicable-me-2-minions/128/Curious-Minion-Icon.png',
+        #     title: 'menu',
+        #     text: 'please select',
+        #     actions: [
+        #       {
+        #         type: 'postback',
+        #         label: 'Bob',
+        #         data: {ans: 'Bob'}.to_json,
+        #       },
+        #       {
+        #         type: 'postback',
+        #         label: 'Kevin',
+        #         data: {ans: 'Kevin'}.to_json,
+        #       }
+        #     ]
+        #   }
         }
         client.reply_message(event['replyToken'], message)
       # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
