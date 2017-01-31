@@ -4,8 +4,8 @@ require 'base64'
 require 'line/bot'
 require_relative 'models/configuration'
 
-menu = [{flavor: 'beef', price: 70},
-        {flavor: 'pork', price: 60}]
+# menu = [{flavor: 'beef', price: 70},
+#         {flavor: 'pork', price: 60}]
 
 # Configuration Sharing Web Service
 class ShareConfigurationsAPI < Sinatra::Base
@@ -29,6 +29,8 @@ class ShareConfigurationsAPI < Sinatra::Base
 end
 
 post '/callback' do
+  @menu = [{flavor: 'beef', price: 70},
+          {flavor: 'pork', price: 60}]
   body = request.body.read
   signature = request.env['HTTP_X_LINE_SIGNATURE']
   unless client.validate_signature(body, signature)
