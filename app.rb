@@ -43,8 +43,12 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         message = {
           type: 'text',
-          text: "1. line one \n2. line two"
+          text: ''
         }
+
+        menu.each_with_index do |dish, index|
+          message[:text] =+ "#{index}. #{dish} \n"
+        end
         # message = {
         #   type: 'template',
         #   altText: 'this is a button template',
