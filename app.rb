@@ -49,7 +49,7 @@ post '/callback' do
         }
 
         @menu.each_with_index do |dish, index|
-          message[:text] =+ "#{index}. #{dish} \n"
+          message[:text] =+ "#{index} #{dish} \n"
         end
         # message = {
         #   type: 'template',
