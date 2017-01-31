@@ -67,7 +67,7 @@ post '/callback' do
         #       }
         #     ]
         #   }
-        }
+        # }
         client.reply_message(event['replyToken'], message)
       # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
       #   response = client.get_message_content(event.message['id'])
