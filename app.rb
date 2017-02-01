@@ -11,22 +11,23 @@ class ShareConfigurationsAPI < Sinatra::Base
     Configuration.setup
   end
 
-  restaurant_1 = [
+  restaurant_0 = [
     {flavor: '排骨', price:'80'},
     {flavor: '雞腿', price:'100'},
     {flavor: '照燒', price:'80'},
     {flavor: '壽喜燒', price:'90'},
   ]
 
-  restaurant_2 = [
+  restaurant_1 = [
     {flavor: '排骨麵', price:'80'},
     {flavor: '雞腿麵', price:'100'},
     {flavor: '照燒麵', price:'80'},
     {flavor: '壽喜燒麵', price:'120'},
   ]
 
-  menu = [{flavor: 'beef', price: 70},
-          {flavor: 'pork', price: 60}]
+  restaurant_list = [restautant_1,restautant_2]
+
+  menu = restaurant_list[0]
 
   get '/?' do
     'ConfigShare web service is up and running at /api/v1'
