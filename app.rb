@@ -3,7 +3,6 @@ require 'json'
 require 'base64'
 require 'line/bot'
 require_relative 'models/configuration'
-require_relative 'models/client'
 
 # Configuration Sharing Web Service
 class ShareConfigurationsAPI < Sinatra::Base
@@ -41,14 +40,12 @@ class ShareConfigurationsAPI < Sinatra::Base
     # TODO: show all routes as json with links
   end
 
-  # def client
-  # @client ||= Line::Bot::Client.new { |config|
-  #   config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-  #   config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-  # }
-  # end
-
-client = Client.new
+  def client
+  @client ||= Line::Bot::Client.new { |config|
+    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+    config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+  }
+  end
 
 post '/callback' do
   body = request.body.read
