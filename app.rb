@@ -63,18 +63,19 @@ post '/callback' do
         res_message = event.message['text']
         reply_message = {
           type: 'text',
-          text: ''
+          text: 'empty'
         }
 
-        # if res_message.strip[0] == '/'
-        #   command = res_message.strip[1...-1]
-        #   case command
-        #   when 'shops'
-        #     restautant_list.each_with_index do |restrant, index|
-        #       reply_message[:text] += "#{index}. #{restrant} \n"
-        #       client.reply_message(event['replyToken'], reply_message)
-        #     end
-        # end
+        if res_message.strip[0] == '/'
+          command = res_message.strip[1...-1]
+          # case command
+          # when 'shops'
+          #   restautant_list.each_with_index do |restrant, index|
+          #     reply_message[:text] += "#{index}. #{restrant} \n"
+          #     client.reply_message(event['replyToken'], reply_message)
+          #   end
+          client.reply_message(event['replyToken'], reply_message)
+        end
 
         menu.each_with_index do |dish, index|
           reply_message[:text] += "#{index}. #{dish[:flavor]} $#{dish[:price]} \n"
