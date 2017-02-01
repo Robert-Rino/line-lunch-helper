@@ -4,14 +4,14 @@ require 'base64'
 require 'line/bot'
 require_relative 'models/configuration'
 
-# menu = [{flavor: 'beef', price: 70},
-#         {flavor: 'pork', price: 60}]
-
 # Configuration Sharing Web Service
 class ShareConfigurationsAPI < Sinatra::Base
   before do
     Configuration.setup
   end
+
+  menu = [{flavor: 'beef', price: 70},
+          {flavor: 'pork', price: 60}]
 
   get '/?' do
     'ConfigShare web service is up and running at /api/v1'
@@ -48,8 +48,8 @@ post '/callback' do
           text: ''
         }
 
-        @menu.each_with_index do |dish, index|
-          message[:text] = "#{index} #{dish} \n"
+        menu.each_with_index do |dish, index|
+          message[:text] += "#{index} #{dish} \n"
         end
         # message = {
         #   type: 'template',
