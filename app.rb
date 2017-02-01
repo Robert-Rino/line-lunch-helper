@@ -48,7 +48,7 @@ class ShareConfigurationsAPI < Sinatra::Base
   # }
   # end
 
-  client = client_init
+client = Client.init
 
 post '/callback' do
   body = request.body.read
