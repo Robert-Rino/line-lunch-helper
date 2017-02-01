@@ -3,17 +3,13 @@ require 'json'
 require 'base64'
 require 'line/bot'
 require_relative 'models/configuration'
+require_relative 'helpers/reply_of_command'
 
 # Configuration Sharing Web Service
 class ShareConfigurationsAPI < Sinatra::Base
   before do
     Configuration.setup
   end
-
-  restautant_list = [
-    '懷舊',
-    '嚼舌'
-  ]
 
   restaurant_1 = [
     {flavor: '排骨', price:'80'},
@@ -68,12 +64,13 @@ post '/callback' do
 
         if res_message.strip[0] == '/'
           command = res_message.strip[1..-1]
-          case command
-          when 'shops'
-            restautant_list.each_with_index do |restrant, index|
-              reply_message[:text] += "#{index}. #{restrant} \n"
-            end
-          client.reply_message(event['replyToken'], reply_message)
+          # case command
+          # when 'shops'
+          #   restautant_list.each_with_index do |restrant, index|
+          #     reply_message[:text] += "#{index}. #{restrant} \n"
+          #   end
+          client.reply_message(event['replyToken'], ReplyOfCommand.call(command))
+          # client.reply_message(event['replyToken'], reply_message)
           end
         end
 
