@@ -68,6 +68,7 @@ post '/callback' do
 
         if res_message.strip[0] == '/'
           command = res_message.strip[1...-1]
+          reply_message[:text] = command
           # case command
           # when 'shops'
           #   restautant_list.each_with_index do |restrant, index|
