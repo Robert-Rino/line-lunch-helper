@@ -67,16 +67,15 @@ post '/callback' do
         }
 
         if res_message.strip[0] == '/'
-          puts 'in command mode'
           command = res_message.strip[1...-1]
           reply_message[:text] += command
           # case command
           # when 'shops'
-          #   restautant_list.each_with_index do |restrant, index|
-          #     reply_message[:text] += "#{index}. #{restrant} \n"
-          #   end
+            restautant_list.each_with_index do |restrant, index|
+              reply_message[:text] += "#{index}. #{restrant} \n"
+            end
           client.reply_message(event['replyToken'], reply_message)
-          end
+          # end
         end
 
         menu.each_with_index do |dish, index|
