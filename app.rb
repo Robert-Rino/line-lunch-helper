@@ -66,15 +66,15 @@ post '/callback' do
           text: ''
         }
 
-        if res_message.strip[0] == '/'
-          command = res_message.strip[1...-1]
-          case command
-          when 'shops'
-            restautant_list.each_with_index do |restrant, index|
-              reply_message[:text] += "#{index}. #{restrant} \n"
-              client.reply_message(event['replyToken'], reply_message) 
-            end
-        end
+        # if res_message.strip[0] == '/'
+        #   command = res_message.strip[1...-1]
+        #   case command
+        #   when 'shops'
+        #     restautant_list.each_with_index do |restrant, index|
+        #       reply_message[:text] += "#{index}. #{restrant} \n"
+        #       client.reply_message(event['replyToken'], reply_message)
+        #     end
+        # end
 
         menu.each_with_index do |dish, index|
           reply_message[:text] += "#{index}. #{dish[:flavor]} $#{dish[:price]} \n"
@@ -88,15 +88,15 @@ post '/callback' do
         }
         client.reply_message(event['replyToken'], message)
       end
-    when Line::Bot::Event::Postback
-
-      payload = JSON.parse(event['postback']['data'])
-      message = {
-        type: 'text',
-        text: "你選擇了 #{payload['ans']}"
-      }
-      client.reply_message(event['replyToken'], message)
-      message_payload_string = redis.get payload['id']
+    # when Line::Bot::Event::Postback
+    #
+    #   payload = JSON.parse(event['postback']['data'])
+    #   message = {
+    #     type: 'text',
+    #     text: "你選擇了 #{payload['ans']}"
+    #   }
+    #   client.reply_message(event['replyToken'], message)
+    #   message_payload_string = redis.get payload['id']
 
     end
   end
