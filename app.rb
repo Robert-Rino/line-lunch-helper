@@ -74,6 +74,7 @@ post '/callback' do
               reply_message[:text] += "#{index}. #{restrant} \n"
             end
           client.reply_message(event['replyToken'], reply_message)
+          end
         end
 
         menu.each_with_index do |dish, index|
