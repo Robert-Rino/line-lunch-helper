@@ -12,5 +12,6 @@ class ReplyOfCommand
       restautant_list.each_with_index do |restrant, index|
         reply += "#{index}. #{restrant} \n"
       end
+    end  
   end
 end
