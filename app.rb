@@ -63,10 +63,11 @@ post '/callback' do
         res_message = event.message['text']
         reply_message = {
           type: 'text',
-          text: 'empty'
+          text: ''
         }
 
         if res_message.strip[0] == '/'
+          puts 'in command mode'
           command = res_message.strip[1...-1]
           case command
           when 'shops'
