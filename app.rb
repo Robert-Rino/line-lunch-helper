@@ -10,6 +10,25 @@ class ShareConfigurationsAPI < Sinatra::Base
     Configuration.setup
   end
 
+  restautant_list = [
+    '懷舊',
+    '嚼舌'
+  ]
+
+  restaurant_1 = [
+    {flavor: '排骨', price:'80'},
+    {flavor: '雞腿', price:'100'},
+    {flavor: '照燒', price:'80'},
+    {flavor: '壽喜燒', price:'90'},
+  ]
+
+  restaurant_2 = [
+    {flavor: '排骨麵', price:'80'},
+    {flavor: '雞腿麵', price:'100'},
+    {flavor: '照燒麵', price:'80'},
+    {flavor: '壽喜燒麵', price:'120'},
+  ]
+
   menu = [{flavor: 'beef', price: 70},
           {flavor: 'pork', price: 60}]
 
@@ -29,8 +48,6 @@ class ShareConfigurationsAPI < Sinatra::Base
 end
 
 post '/callback' do
-  @menu = [{flavor: 'beef', price: 70},
-          {flavor: 'pork', price: 60}]
   body = request.body.read
   signature = request.env['HTTP_X_LINE_SIGNATURE']
   unless client.validate_signature(body, signature)
@@ -43,42 +60,33 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        message = {
+        res_message = event.message['text']
+        reply_message = {
           type: 'text',
           text: ''
         }
 
-        menu.each_with_index do |dish, index|
-          message[:text] += "#{index}. #{dish[:flavor]} $ #{dish[:price]} \n"
+        if res_message.strip[0] == '/'
+          command = res_message.strip[1...-1]
+          case command
+          when 'shops'
+            restautant_list.each_with_index do |restrant, index|
+              reply_message[:text] += "#{index}. #{restrant} \n"
+              client.reply_message(event['replyToken'], reply_message) 
+            end
         end
-        # message = {
-        #   type: 'template',
-        #   altText: 'this is a button template',
-        #   template: {
-        #     type: 'buttons',
-        #     thumbnailImageUrl:
-        #   'https://cdn2.iconfinder.com/data/icons/despicable-me-2-minions/128/Curious-Minion-Icon.png',
-        #     title: 'menu',
-        #     text: 'please select',
-        #     actions: [
-        #       {
-        #         type: 'postback',
-        #         label: 'Bob',
-        #         data: {ans: 'Bob'}.to_json,
-        #       },
-        #       {
-        #         type: 'postback',
-        #         label: 'Kevin',
-        #         data: {ans: 'Kevin'}.to_json,
-        #       }
-        #     ]
-        #   }
-        # }
+
+        menu.each_with_index do |dish, index|
+          reply_message[:text] += "#{index}. #{dish[:flavor]} $#{dish[:price]} \n"
+        end
+
+        client.reply_message(event['replyToken'], reply_message)
+      when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
+        message = {
+          type: 'text',
+          text: '謝謝分享 我現在還看不懂圖片和影片喔 :)'
+        }
         client.reply_message(event['replyToken'], message)
-      # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
-      #   response = client.get_message_content(event.message['id'])
-      #   tf = Tempfile.open("content")
-      #   tf.write(response.body)
       end
     when Line::Bot::Event::Postback
 
