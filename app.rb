@@ -13,7 +13,7 @@ class ShareConfigurationsAPI < Sinatra::Base
   reataurant = {
     restaurant_name => '周胖子餃子館',
     restaurant_menu => {
-      '水餃類' => ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8']
+      '水餃類' => ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8'],
       '餅類'=> ['蔥油餅 $35', '牛肉捲餅 $90', '豬肉捲餅 $90']
     }
   }
