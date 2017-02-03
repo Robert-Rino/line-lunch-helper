@@ -136,7 +136,7 @@ post '/callback' do
                         "type": "postback",
                         "label": "水餃 x 5",
                         "data": {
-                          id: event['message']['id'],
+                          id: "#{payload['id']}",
                           type: "orderNumber",
                           flavor: "豬肉水餃",
                           number: 5
@@ -146,7 +146,7 @@ post '/callback' do
                         "type": "postback",
                         "label": "水餃 x 10",
                         "data": {
-                          id: event['message']['id'],
+                          id: "#{payload['id']}",
                           type: "orderNumber",
                           flavor: "豬肉水餃",
                           number: 10
@@ -156,7 +156,7 @@ post '/callback' do
                           "type": "postback",
                           "label": "水餃 x 15",
                           "data": {
-                            id: event['message']['id'],
+                            id: "#{payload['id']}",
                             type: "orderNumber",
                             flavor: "豬肉水餃",
                             number: 15
@@ -172,7 +172,7 @@ post '/callback' do
                         "type": "postback",
                         "label": "水餃 x 5",
                         "data": {
-                          id: event['message']['id'],
+                          id: "#{payload['id']}",
                           type: "orderNumber",
                           flavor: "牛肉水餃",
                           number: 5
@@ -182,7 +182,7 @@ post '/callback' do
                         "type": "postback",
                         "label": "水餃 x 10",
                         "data": {
-                          id: event['message']['id'],
+                          id: "#{payload['id']}",
                           type: "orderNumber",
                           flavor: "牛肉水餃",
                           number: 10
@@ -192,7 +192,7 @@ post '/callback' do
                         "type": "postback",
                         "label": "水餃 x 15",
                         "data": {
-                          id: event['message']['id'],
+                          id: "#{payload['id']}",
                           type: "orderNumber",
                           flavor: "牛肉水餃",
                           number: 15
