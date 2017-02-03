@@ -11,20 +11,20 @@ class ShareConfigurationsAPI < Sinatra::Base
   end
 
   reataurant = {
-    'restaurant_name' => '周胖子餃子館',
-    'restaurant_menu' => {
-      '水餃類' => ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8'],
-      '餅類'=> ['蔥油餅 $35', '牛肉捲餅 $90', '豬肉捲餅 $90']
+    'restaurant_name': '周胖子餃子館',
+    'restaurant_menu': {
+      '水餃類': ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8'],
+      '餅類': ['蔥油餅 $35', '牛肉捲餅 $90', '豬肉捲餅 $90']
     }
   }
 
 
-  menu = [
-    {flavor: '排骨', price:'80'},
-    {flavor: '雞腿', price:'100'},
-    {flavor: '照燒', price:'80'},
-    {flavor: '壽喜燒', price:'90'},
-  ]
+  # menu = [
+  #   {flavor: '排骨', price:'80'},
+  #   {flavor: '雞腿', price:'100'},
+  #   {flavor: '照燒', price:'80'},
+  #   {flavor: '壽喜燒', price:'90'},
+  # ]
 
   get '/?' do
     'ConfigShare web service is up and running at /api/v1'
@@ -68,7 +68,7 @@ post '/callback' do
           "點餐" ： 開始點餐
           '
         when '吃什麼'
-          reataurant['restaurant_menu'].each do |type|
+          reataurant['restaurant_menu'].each_key do |type|
             reply_message[:text] += "#{type} \n"
             reataurant['restaurant_menu'][type].each do |dish|
               reply_message[:text] += "#{dish} \n"
