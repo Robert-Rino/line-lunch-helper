@@ -10,8 +10,6 @@ class ShareConfigurationsAPI < Sinatra::Base
     Configuration.setup
   end
 
-set :public_dir, File.expand_path('./public', __FILE__)
-
   restaurant = {
     restaurant_name: '周胖子餃子館',
     restaurant_menu: {
@@ -81,7 +79,7 @@ post '/callback' do
         when '開始點餐'
           reply_message = {
             "type": "template",
-            "thumbnailImageUrl": "pancake.png",
+            "thumbnailImageUrl": "./public/pancake.png",
             "altText": "請選擇您的餐點種類",
             "template": {
                 "type": "buttons",
@@ -91,7 +89,7 @@ post '/callback' do
                     {
                       "type": "postback",
                       "label": "水餃類",
-                      "data": {id: event['message']['id'], answer:"水餃類"}.to_json
+                      "data": {id: event['message']['id'], type:"choseType", answer:"水餃類"}.to_json
                     },
                     {
                       "type": "postback",
