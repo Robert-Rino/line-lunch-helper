@@ -77,11 +77,30 @@ post '/callback' do
             reply_message[:text] += "\n"
           end
         when '開始點餐'
-
+          reply_message = {
+            "type": "template",
+            "altText": "請選擇您的餐點種類",
+            "template": {
+                "type": "buttons",
+                "title": "今天想吃點什麼？",
+                "text": "點選您想吃的類別",
+                "actions": [
+                    {
+                      "type": "postback",
+                      "label": "水餃類",
+                      "data": {id: event['message']['id'], answer:"水餃類"}.to_json
+                    },
+                    {
+                      "type": "postback",
+                      "label": "餅類",
+                      "data": {id: event['message']['id'], answer:"餅類"}.to_json
+                    }
+                ]
+            }
+          }
 
         else
-          # reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
-          reply_message[:text] = request.body.read
+          reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
         end
 
         client.reply_message(event['replyToken'], reply_message)
@@ -92,15 +111,16 @@ post '/callback' do
         }
         client.reply_message(event['replyToken'], message)
       end
-    # when Line::Bot::Event::Postback
-    #
-    #   payload = JSON.parse(event['postback']['data'])
-    #   message = {
-    #     type: 'text',
-    #     text: "你選擇了 #{payload['ans']}"
-    #   }
-    #   client.reply_message(event['replyToken'], message)
-    #   message_payload_string = redis.get payload['id']
+    when Line::Bot::Event::Postback
+
+      payload = JSON.parse(event['postback']['data'])
+
+      message = {
+        type: 'text',
+        text: "#{payload['id']} 選擇了 #{payload['answer']}"
+      }
+      client.reply_message(event['replyToken'], message)
+      message_payload_string = redis.get payload['id']
 
     end
   end
