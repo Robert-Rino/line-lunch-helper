@@ -78,7 +78,6 @@ post '/callback' do
         when '點餐'
           reply_message = {
             "type": "template",
-            "thumbnailImageUrl": "http://simg314.magcasa.com/content_images/2015/09/25/142997/1443115830_2324.jpg",
             "altText": "請選擇您的餐點種類",
             "template": {
                 "type": "buttons",
@@ -117,67 +116,99 @@ post '/callback' do
 
       case payload['type']
       when "choseType"
-      message = {
-        type: 'text',
-        text: "#{payload['id']} 選擇了 #{payload['answer']}"
-      }
-
       # message = {
-      #   "type": "template",
-      #   "altText": "選擇你的餐點數量",
-      #   "template": {
-      #       "type": "carousel",
-      #       "columns": [
-      #           {
-      #             "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-      #             "title": "this is menu",
-      #             "text": "description",
-      #             "actions": [
-      #                 {
-      #                     "type": "postback",
-      #                     "label": "Buy",
-      #                     "data": "action=buy&itemid=111"
-      #                 },
-      #                 {
-      #                     "type": "postback",
-      #                     "label": "Add to cart",
-      #                     "data": "action=add&itemid=111"
-      #                 },
-      #                 {
-      #                     "type": "uri",
-      #                     "label": "View detail",
-      #                     "uri": "http://example.com/page/111"
-      #                 }
-      #             ]
-      #           },
-      #           {
-      #             "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-      #             "title": "this is menu",
-      #             "text": "description",
-      #             "actions": [
-      #                 {
-      #                     "type": "postback",
-      #                     "label": "Buy",
-      #                     "data": "action=buy&itemid=222"
-      #                 },
-      #                 {
-      #                     "type": "postback",
-      #                     "label": "Add to cart",
-      #                     "data": "action=add&itemid=222"
-      #                 },
-      #                 {
-      #                     "type": "uri",
-      #                     "label": "View detail",
-      #                     "uri": "http://example.com/page/222"
-      #                 }
-      #             ]
-      #           }
-      #       ]
-      #   }
+      #   type: 'text',
+      #   text: "#{payload['id']} 選擇了 #{payload['answer']}"
       # }
-      client.reply_message(event['replyToken'], message)
-      when "choseDish"
 
+      message = {
+        "type": "template",
+        "altText": "選擇你的餐點數量",
+        "template": {
+            "type": "carousel",
+            "columns": [
+                {
+                  # "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+                  "title": "豬肉水餃",
+                  "text": "周胖子的招牌",
+                  "actions": [
+                      {
+                        "type": "postback",
+                        "label": "水餃 x 5",
+                        "data": {
+                          id: event['message']['id'],
+                          type: "orderNumber",
+                          flavor: "豬肉水餃",
+                          number: 5
+                        }.to_json
+                      },
+                      {
+                        "type": "postback",
+                        "label": "水餃 x 10",
+                        "data": {
+                          id: event['message']['id'],
+                          type: "orderNumber",
+                          flavor: "豬肉水餃",
+                          number: 10
+                        }.to_json
+                      },
+                      {
+                          "type": "postback",
+                          "label": "水餃 x 15",
+                          "data": {
+                            id: event['message']['id'],
+                            type: "orderNumber",
+                            flavor: "豬肉水餃",
+                            number: 15
+                          }.to_json
+                      }
+                  ]
+                },
+                {
+                  "title": "牛肉水餃",
+                  "text": "包牛肉的水餃",
+                  "actions": [
+                      {
+                        "type": "postback",
+                        "label": "水餃 x 5",
+                        "data": {
+                          id: event['message']['id'],
+                          type: "orderNumber",
+                          flavor: "牛肉水餃",
+                          number: 5
+                        }.to_json
+                      },
+                      {
+                        "type": "postback",
+                        "label": "水餃 x 10",
+                        "data": {
+                          id: event['message']['id'],
+                          type: "orderNumber",
+                          flavor: "牛肉水餃",
+                          number: 10
+                        }.to_json
+                      },
+                      {
+                        "type": "postback",
+                        "label": "水餃 x 15",
+                        "data": {
+                          id: event['message']['id'],
+                          type: "orderNumber",
+                          flavor: "牛肉水餃",
+                          number: 15
+                        }.to_json
+                      }
+                  ]
+                }
+            ]
+        }
+      }
+      client.reply_message(event['replyToken'], message)
+      when "orderNumber"
+        message = {
+          type: 'text',
+          text: "#{payload['id']} 點了 #{payload['number']} 顆 #{payload['flavor']  }"
+        }
       else
       end
     end
