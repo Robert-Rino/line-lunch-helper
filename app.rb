@@ -65,7 +65,7 @@ post '/callback' do
           reply_message[:text] += "您可以輸入以下的指令：\n"
           reply_message[:text] += "\"吃什麼\"：查詢今日餐點 \n"
           reply_message[:text] += "\"點餐\"：開始點餐 \n"
-          
+
         when '吃什麼'
           reply_message[:text] += " #{restaurant[:restaurant_name]} \n"
           restaurant[:restaurant_menu].each_key do |type|
@@ -75,7 +75,7 @@ post '/callback' do
             end
             reply_message[:text] += "\n"
           end
-        when '開始點餐'
+        when '點餐'
           reply_message = {
             "type": "template",
             "thumbnailImageUrl": "./public/pancake.png",
