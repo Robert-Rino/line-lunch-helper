@@ -10,6 +10,8 @@ class ShareConfigurationsAPI < Sinatra::Base
     Configuration.setup
   end
 
+set :public_dir, File.expand_path('./public', __FILE__)
+
   restaurant = {
     restaurant_name: '周胖子餃子館',
     restaurant_menu: {
@@ -79,6 +81,7 @@ post '/callback' do
         when '開始點餐'
           reply_message = {
             "type": "template",
+            "thumbnailImageUrl": "pancake.png",
             "altText": "請選擇您的餐點種類",
             "template": {
                 "type": "buttons",
@@ -93,7 +96,7 @@ post '/callback' do
                     {
                       "type": "postback",
                       "label": "餅類",
-                      "data": {id: event['message']['id'], answer:"餅類"}.to_json
+                      "data": {id: event['message']['id'], type:"choseType", answer:"餅類"}.to_json
                     }
                 ]
             }
@@ -115,13 +118,71 @@ post '/callback' do
 
       payload = JSON.parse(event['postback']['data'])
 
+      case payload['type']
+      when "choseType"
       message = {
         type: 'text',
         text: "#{payload['id']} 選擇了 #{payload['answer']}"
       }
-      client.reply_message(event['replyToken'], message)
-      message_payload_string = redis.get payload['id']
 
+      # message = {
+      #   "type": "template",
+      #   "altText": "選擇你的餐點數量",
+      #   "template": {
+      #       "type": "carousel",
+      #       "columns": [
+      #           {
+      #             "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+      #             "title": "this is menu",
+      #             "text": "description",
+      #             "actions": [
+      #                 {
+      #                     "type": "postback",
+      #                     "label": "Buy",
+      #                     "data": "action=buy&itemid=111"
+      #                 },
+      #                 {
+      #                     "type": "postback",
+      #                     "label": "Add to cart",
+      #                     "data": "action=add&itemid=111"
+      #                 },
+      #                 {
+      #                     "type": "uri",
+      #                     "label": "View detail",
+      #                     "uri": "http://example.com/page/111"
+      #                 }
+      #             ]
+      #           },
+      #           {
+      #             "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+      #             "title": "this is menu",
+      #             "text": "description",
+      #             "actions": [
+      #                 {
+      #                     "type": "postback",
+      #                     "label": "Buy",
+      #                     "data": "action=buy&itemid=222"
+      #                 },
+      #                 {
+      #                     "type": "postback",
+      #                     "label": "Add to cart",
+      #                     "data": "action=add&itemid=222"
+      #                 },
+      #                 {
+      #                     "type": "uri",
+      #                     "label": "View detail",
+      #                     "uri": "http://example.com/page/222"
+      #                 }
+      #             ]
+      #           }
+      #       ]
+      #   }
+      # }
+      client.reply_message(event['replyToken'], message)
+      when "choseDish"
+
+      else
+      end
     end
   end
 
