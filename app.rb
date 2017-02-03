@@ -10,7 +10,7 @@ class ShareConfigurationsAPI < Sinatra::Base
     Configuration.setup
   end
 
-  reataurant = {
+  restaurant = {
     restaurant_name: '周胖子餃子館',
     restaurant_menu: {
       水餃類: ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8'],
@@ -69,9 +69,9 @@ post '/callback' do
           "
         when '吃什麼'
           reply_message[:text] += " #{restaurant[:restaurant_name]} \n"
-          reataurant[:restaurant_menu].each_key do |type|
+          restaurant[:restaurant_menu].each_key do |type|
             reply_message[:text] += "#{type} \n"
-            reataurant[:restaurant_menu][type].each do |dish|
+            restaurant[:restaurant_menu][type].each do |dish|
               reply_message[:text] += "#{dish} \n"
             end
             reply_message[:text] += "\n"
