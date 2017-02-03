@@ -72,7 +72,6 @@ post '/callback' do
           #   end
           client.reply_message(event['replyToken'], ReplyOfCommand.call(command))
           # client.reply_message(event['replyToken'], reply_message)
-          end
         end
 
         menu.each_with_index do |dish, index|
