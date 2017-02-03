@@ -1,6 +1,6 @@
 class ReplyOfCommand
 
-  restautant_list = [
+  @restautant_list = [
     '懷舊',
     '嚼舌'
   ]
@@ -9,9 +9,9 @@ class ReplyOfCommand
     reply = ''
     case command
     when 'shops'
-      restautant_list.each_with_index do |restrant, index|
+      @restautant_list.each_with_index do |restrant, index|
         reply += "#{index}. #{restrant} \n"
       end
-    end  
+    end
   end
 end
