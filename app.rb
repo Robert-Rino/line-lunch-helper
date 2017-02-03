@@ -209,6 +209,7 @@ post '/callback' do
           type: 'text',
           text: "#{payload['id']} 點了 #{payload['number']} 顆 #{payload['flavor']  }"
         }
+        client.reply_message(event['replyToken'], message)
       else
       end
     end
