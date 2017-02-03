@@ -78,7 +78,7 @@ post '/callback' do
         when '點餐'
           reply_message = {
             "type": "template",
-            "thumbnailImageUrl": "http://bit.ly/2l4D0yF ",
+            "thumbnailImageUrl": "http://simg314.magcasa.com/content_images/2015/09/25/142997/1443115830_2324.jpg",
             "altText": "請選擇您的餐點種類",
             "template": {
                 "type": "buttons",
