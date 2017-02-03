@@ -78,7 +78,7 @@ post '/callback' do
         when '點餐'
           reply_message = {
             "type": "template",
-            "thumbnailImageUrl": "http://bit.ly/2kwYI1U ",
+            "thumbnailImageUrl": "http://bit.ly/2l4D0yF ",
             "altText": "請選擇您的餐點種類",
             "template": {
                 "type": "buttons",
