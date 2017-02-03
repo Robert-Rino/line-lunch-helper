@@ -70,9 +70,10 @@ post '/callback' do
         when '吃什麼'
           reataurant['restaurant_menu'].each_key do |type|
             reply_message[:text] += "#{type} \n"
-            reataurant['restaurant_menu'][type].each do |dish|
-              reply_message[:text] += "#{dish} \n"
-            end
+            puts type
+            # reataurant['restaurant_menu'][type].each do |dish|
+            #   reply_message[:text] += "#{dish} \n"
+            # end
             reply_message[:text] += "\n"
           end
         when '開始點餐'
