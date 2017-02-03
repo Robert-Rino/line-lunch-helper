@@ -78,7 +78,7 @@ post '/callback' do
         when '點餐'
           reply_message = {
             "type": "template",
-            "thumbnailImageUrl": "https://www.google.com.tw/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjK6KSAivTRAhUFjJQKHUz1BTIQjRwIBw&url=http%3A%2F%2Fwww.gigcasa.com%2Fcn%2Farticles%2F142997&psig=AFQjCNEFl8yM3w52weuFgifgQ5rAnqwqdg&ust=1486216472264092",
+            "thumbnailImageUrl": "http://bit.ly/2kwYI1U ",
             "altText": "請選擇您的餐點種類",
             "template": {
                 "type": "buttons",
