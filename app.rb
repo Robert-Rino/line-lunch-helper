@@ -25,7 +25,7 @@ class ShareConfigurationsAPI < Sinatra::Base
     {flavor: '壽喜燒麵', price:'120'},
   ]
 
-  restaurant_list = [restautant_1,restautant_2]
+  restaurant_list = [restaurant_1,restaurant_2]
 
   menu = restaurant_list[0]
 
