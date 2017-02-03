@@ -3,7 +3,6 @@ require 'json'
 require 'base64'
 require 'line/bot'
 require_relative 'models/configuration'
-require_relative 'helpers/reply_of_command'
 
 # Configuration Sharing Web Service
 class ShareConfigurationsAPI < Sinatra::Base
@@ -11,23 +10,12 @@ class ShareConfigurationsAPI < Sinatra::Base
     Configuration.setup
   end
 
-  restaurant_0 = [
+  menu = [
     {flavor: '排骨', price:'80'},
     {flavor: '雞腿', price:'100'},
     {flavor: '照燒', price:'80'},
     {flavor: '壽喜燒', price:'90'},
   ]
-
-  restaurant_1 = [
-    {flavor: '排骨麵', price:'80'},
-    {flavor: '雞腿麵', price:'100'},
-    {flavor: '照燒麵', price:'80'},
-    {flavor: '壽喜燒麵', price:'120'},
-  ]
-
-  restaurant_list = [restaurant_0,restaurant_1]
-
-  menu = restaurant_list[0]
 
   get '/?' do
     'ConfigShare web service is up and running at /api/v1'
@@ -63,19 +51,13 @@ post '/callback' do
           text: ''
         }
 
-        if res_message.strip[0] == '/'
-          command = res_message.strip[1..-1]
-          # case command
-          # when 'shops'
-          #   restautant_list.each_with_index do |restrant, index|
-          #     reply_message[:text] += "#{index}. #{restrant} \n"
-          #   end
-          client.reply_message(event['replyToken'], ReplyOfCommand.call(command))
-          # client.reply_message(event['replyToken'], reply_message)
-        end
-
-        menu.each_with_index do |dish, index|
-          reply_message[:text] += "#{index}. #{dish[:flavor]} $#{dish[:price]} \n"
+        case event.message['text']
+        when '吃什麼'
+          menu.each_with_index do |dish, index|
+            reply_message[:text] += "#{index}. #{dish[:flavor]} $#{dish[:price]} \n"
+          end
+        else
+          reply_message[:text] = '嗨～我是便當小幫手'
         end
 
         client.reply_message(event['replyToken'], reply_message)
