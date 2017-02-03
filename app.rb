@@ -78,8 +78,10 @@ post '/callback' do
           end
         when '開始點餐'
 
+
         else
-          reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
+          # reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
+          reply_message[:text] = event
         end
 
         client.reply_message(event['replyToken'], reply_message)
