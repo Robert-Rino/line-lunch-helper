@@ -12,9 +12,13 @@ class ShareConfigurationsAPI < Sinatra::Base
 
   restaurant = {
     restaurant_name: '周胖子餃子館',
+    # restaurant_menu: {
+    #   水餃類: ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8'],
+    #   餅類: ['蔥油餅 $35', '牛肉捲餅 $90', '豬肉捲餅 $90']
+    # }
     restaurant_menu: {
-      水餃類: ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8'],
-      餅類: ['蔥油餅 $35', '牛肉捲餅 $90', '豬肉捲餅 $90']
+      水餃類: {豬肉水餃: 7, 牛肉水餃: 7, 玉米水餃: 8, 素蒸餃: 8},
+      餅類: {蔥油餅: 35, 牛肉捲餅: 90, 豬肉捲餅: 90}
     }
   }
 
@@ -70,8 +74,8 @@ post '/callback' do
           reply_message[:text] += " #{restaurant[:restaurant_name]} \n"
           restaurant[:restaurant_menu].each_key do |type|
             reply_message[:text] += "#{type} \n"
-            restaurant[:restaurant_menu][type].each do |dish|
-              reply_message[:text] += "#{dish} \n"
+            restaurant[:restaurant_menu][type].each_key do |dish|
+              reply_message[:text] += "#{dish} $#{restaurant[:restaurant_menu][type][dish]} \n"
             end
             reply_message[:text] += "\n"
           end
@@ -120,7 +124,8 @@ post '/callback' do
       #   type: 'text',
       #   text: "#{payload['id']} 選擇了 #{payload['answer']}"
       # }
-
+      case payload['answer']
+      when '水餃類'
       message = {
         "type": "template",
         "altText": "選擇你的餐點數量",
@@ -138,6 +143,7 @@ post '/callback' do
                         "data": {
                           id: "#{payload['id']}",
                           type: "orderNumber",
+                          category: "水餃類",
                           flavor: "豬肉水餃",
                           number: 5
                         }.to_json
@@ -148,6 +154,7 @@ post '/callback' do
                         "data": {
                           id: "#{payload['id']}",
                           type: "orderNumber",
+                          category: "水餃類",
                           flavor: "豬肉水餃",
                           number: 10
                         }.to_json
@@ -158,6 +165,7 @@ post '/callback' do
                           "data": {
                             id: "#{payload['id']}",
                             type: "orderNumber",
+                            category: "水餃類",
                             flavor: "豬肉水餃",
                             number: 15
                           }.to_json
@@ -174,6 +182,7 @@ post '/callback' do
                         "data": {
                           id: "#{payload['id']}",
                           type: "orderNumber",
+                          category: "水餃類",
                           flavor: "牛肉水餃",
                           number: 5
                         }.to_json
@@ -184,6 +193,7 @@ post '/callback' do
                         "data": {
                           id: "#{payload['id']}",
                           type: "orderNumber",
+                          category: "水餃類",
                           flavor: "牛肉水餃",
                           number: 10
                         }.to_json
@@ -194,6 +204,7 @@ post '/callback' do
                         "data": {
                           id: "#{payload['id']}",
                           type: "orderNumber",
+                          category: "水餃類",
                           flavor: "牛肉水餃",
                           number: 15
                         }.to_json
@@ -203,12 +214,104 @@ post '/callback' do
             ]
         }
       }
+      when '餅類'
+        message = {
+          "type": "template",
+          "altText": "選擇你的餐點數量",
+          "template": {
+              "type": "carousel",
+              "columns": [
+                  {
+                    # "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+                    "title": "蔥油餅",
+                    "text": "麵粉加蔥做的餅",
+                    "actions": [
+                        {
+                          "type": "postback",
+                          "label": "蔥油餅 x 1",
+                          "data": {
+                            id: "#{payload['id']}",
+                            type: "orderNumber",
+                            category: "餅類",
+                            flavor: "蔥油餅",
+                            number: 1
+                          }.to_json
+                        },
+                        {
+                          "type": "postback",
+                          "label": "蔥油餅 x 2",
+                          "data": {
+                            id: "#{payload['id']}",
+                            type: "orderNumber",
+                            category: "餅類",
+                            flavor: "蔥油餅",
+                            number: 2
+                          }.to_json
+                        },
+                        {
+                            "type": "postback",
+                            "label": "蔥油餅 x 3",
+                            "data": {
+                              id: "#{payload['id']}",
+                              type: "orderNumber",
+                              category: "餅類",
+                              flavor: "蔥油餅",
+                              number: 3
+                            }.to_json
+                        }
+                    ]
+                  },
+                  {
+                    "title": "牛肉捲餅",
+                    "text": "蔥油餅包牛肉",
+                    "actions": [
+                        {
+                          "type": "postback",
+                          "label": "牛肉捲餅 x 1",
+                          "data": {
+                            id: "#{payload['id']}",
+                            type: "orderNumber",
+                            category: "餅類",
+                            flavor: "牛肉捲餅",
+                            number: 1
+                          }.to_json
+                        },
+                        {
+                          "type": "postback",
+                          "label": "牛肉捲餅 x 2",
+                          "data": {
+                            id: "#{payload['id']}",
+                            type: "orderNumber",
+                            category: "餅類",
+                            flavor: "牛肉捲餅",
+                            number: 2
+                          }.to_json
+                        },
+                        {
+                          "type": "postback",
+                          "label": "牛肉捲餅 x 3",
+                          "data": {
+                            id: "#{payload['id']}",
+                            type: "orderNumber",
+                            category: "餅類",
+                            flavor: "牛肉捲餅",
+                            number: 3
+                          }.to_json
+                        }
+                    ]
+                  }
+              ]
+          }
+        }
+      end
       client.reply_message(event['replyToken'], message)
       when "orderNumber"
         message = {
           type: 'text',
-          text: "#{payload['id']} 點了 #{payload['number']} 顆 #{payload['flavor']  }"
+          text: "#{payload['id']} 點了 #{payload['number']} 個 #{payload['flavor']} \n"
         }
+        sum = payload['number'] * restaurant[:restaurant_menu][payload["category"]][payload["flavor"]]
+        message[:text] += "總共是 $#{sum} 元"
         client.reply_message(event['replyToken'], message)
       else
       end
