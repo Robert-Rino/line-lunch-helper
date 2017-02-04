@@ -12,23 +12,11 @@ class ShareConfigurationsAPI < Sinatra::Base
 
   restaurant = {
     restaurant_name: '周胖子餃子館',
-    # restaurant_menu: {
-    #   水餃類: ['豬肉水餃 $7', '牛肉水餃 $7', '玉米水餃 $8', '素蒸餃 $8'],
-    #   餅類: ['蔥油餅 $35', '牛肉捲餅 $90', '豬肉捲餅 $90']
-    # }
     restaurant_menu: {
       水餃類: {豬肉水餃: 7, 牛肉水餃: 7, 玉米水餃: 8, 素蒸餃: 8},
       餅類: {蔥油餅: 35, 牛肉捲餅: 90, 豬肉捲餅: 90}
     }
   }
-
-
-  # menu = [
-  #   {flavor: '排骨', price:'80'},
-  #   {flavor: '雞腿', price:'100'},
-  #   {flavor: '照燒', price:'80'},
-  #   {flavor: '壽喜燒', price:'90'},
-  # ]
 
   get '/?' do
     'ConfigShare web service is up and running at /api/v1'
@@ -120,10 +108,6 @@ post '/callback' do
 
       case payload['type']
       when "choseType"
-      # message = {
-      #   type: 'text',
-      #   text: "#{payload['id']} 選擇了 #{payload['answer']}"
-      # }
       case payload['answer']
       when '水餃類'
       message = {
@@ -133,7 +117,6 @@ post '/callback' do
             "type": "carousel",
             "columns": [
                 {
-                  # "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
                   "title": "豬肉水餃",
                   "text": "周胖子的招牌",
                   "actions": [
