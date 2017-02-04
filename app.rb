@@ -310,7 +310,7 @@ post '/callback' do
           type: 'text',
           text: "#{payload['id']} 點了 #{payload['number']} 個 #{payload['flavor']} \n"
         }
-        sum = payload['number'] * restaurant[:restaurant_menu][payload["category"]][payload["flavor"]]
+        sum = payload['number'] * restaurant[:restaurant_menu][":#{payload['category']}"][:"#{payload['flavor']}"]
         message[:text] += "總共是 $#{sum} 元"
         client.reply_message(event['replyToken'], message)
       else
