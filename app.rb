@@ -52,7 +52,7 @@ post '/callback' do
           text: ''
         }
 
-        case event.message['text']
+        case event.message['text'].downcase
         when 'help'
           reply_message[:text] += "您可以輸入以下的指令：\n"
           reply_message[:text] += "\"吃什麼\"：查詢今日餐點 \n"
