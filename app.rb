@@ -91,8 +91,8 @@ post '/callback' do
           }
 
         else
-          # reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
-            reply_message[:text] = event.inspect
+          reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
+            # reply_message[:text] = event.inspect
         end
 
         client.reply_message(event['replyToken'], reply_message)
