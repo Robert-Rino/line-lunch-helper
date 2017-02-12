@@ -79,12 +79,12 @@ post '/callback' do
                     {
                       "type": "postback",
                       "label": "水餃類",
-                      "data": {id: event['message']['id'], type:"choseType", answer:"水餃類"}.to_json
+                      "data": {id: event['source']['userId'], type:"choseType", answer:"水餃類"}.to_json
                     },
                     {
                       "type": "postback",
                       "label": "餅類",
-                      "data": {id: event['message']['id'], type:"choseType", answer:"餅類"}.to_json
+                      "data": {id: event['source']['userId'], type:"choseType", answer:"餅類"}.to_json
                     }
                 ]
             }
