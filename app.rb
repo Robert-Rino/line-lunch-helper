@@ -2,6 +2,7 @@ require 'sinatra'
 require 'json'
 require 'base64'
 require 'line/bot'
+require 'httparty'
 require_relative 'models/configuration'
 
 # Configuration Sharing Web Service
@@ -89,6 +90,26 @@ post '/callback' do
                 ]
             }
           }
+        when 'test'
+          response = HTTParty.get("#{API_HOST}/api/v1/restaurants/1/dishs")
+          reply_message ={
+            "type": "template",
+            "altText": "this is a buttons template",
+            "template": {
+                "type": "buttons",
+                # "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+                "title": "Menu",
+                "text": "Please select",
+                "actions": []
+            }
+          }
+          response[:data].each do |item|
+            message[:template][:actions].push({
+              "type": "postback",
+              "label": "#{item[:data][:dishname]} #{item[:data][:price]}\#{item[:data][:unit]}}",
+              "data": "action=buy&itemid=123"
+              })
+          end
 
         else
           reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
@@ -108,6 +129,25 @@ post '/callback' do
       payload = JSON.parse(event['postback']['data'])
 
       case payload['type']
+      when "dishs"
+        message = {
+          "type": "template",
+          "altText": "this is a buttons template",
+          "template": {
+              "type": "buttons",
+              # "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+              "title": "Menu",
+              "text": "Please select",
+              "actions": []
+          }
+        }
+        payload[:data].each do |item|
+          message[:template][:actions].push({
+            "type": "postback",
+            "label": item[:data][:dishname],
+            "data": "action=buy&itemid=123"
+            })
+        end
       when "choseType"
       case payload['answer']
       when '水餃類'
