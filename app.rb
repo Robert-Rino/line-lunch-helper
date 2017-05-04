@@ -92,7 +92,9 @@ post '/callback' do
           }
         when 'test'
           response = HTTParty.get("#{ENV["API_HOST"]}/api/v1/restaurants/1/dishs")
-          print response
+          puts 'hello'
+          puts ENV["API_HOST"]
+          puts response
           # reply_message ={
           #   "type": "template",
           #   "altText": "this is a buttons template",
