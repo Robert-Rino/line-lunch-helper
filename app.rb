@@ -93,19 +93,23 @@ post '/callback' do
         when 'test'
           response = HTTParty.get("#{ENV["API_HOST"]}/api/v1/restaurants/1/dishs")
           puts response
-          reply_message ={
+          reply_message = {
             "type": "text",
-            "altText": "this is a buttons template",
-            "template": {
-                "type": "buttons",
-                "title": "Menu",
-                "text": "Please select",
-                "actions": [{
-                  "type": "postback",
-                  "label": "#{response['data']}",
-                  "data": "action=buy&itemid=123"}]
-            }
+            "text": response
           }
+          # reply_message ={
+          #   "type": "text",
+          #   "altText": "this is a buttons template",
+          #   "template": {
+          #       "type": "buttons",
+          #       "title": "Menu",
+          #       "text": "Please select",
+          #       "actions": [{
+          #         "type": "postback",
+          #         "label": "#{response['data']}",
+          #         "data": "action=buy&itemid=123"}]
+          #   }
+          # }
           # response[:data].each do |item|
           #   message[:template][:actions].push({
           #     "type": "postback",
