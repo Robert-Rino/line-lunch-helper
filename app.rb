@@ -92,24 +92,25 @@ post '/callback' do
           }
         when 'test'
           response = HTTParty.get("#{ENV["API_HOST"]}/api/v1/restaurants/1/dishs")
-          reply_message ={
-            "type": "template",
-            "altText": "this is a buttons template",
-            "template": {
-                "type": "buttons",
-                # "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-                "title": "Menu",
-                "text": "Please select",
-                "actions": []
-            }
-          }
-          response[:data].each do |item|
-            message[:template][:actions].push({
-              "type": "postback",
-              "label": "#{item[:data][:dishname]} #{item[:data][:price]}\#{item[:data][:unit]}}",
-              "data": "action=buy&itemid=123"
-              })
-          end
+          print response
+          # reply_message ={
+          #   "type": "template",
+          #   "altText": "this is a buttons template",
+          #   "template": {
+          #       "type": "buttons",
+          #       # "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+          #       "title": "Menu",
+          #       "text": "Please select",
+          #       "actions": []
+          #   }
+          # }
+          # response[:data].each do |item|
+          #   message[:template][:actions].push({
+          #     "type": "postback",
+          #     "label": "#{item[:data][:dishname]} #{item[:data][:price]}\#{item[:data][:unit]}}",
+          #     "data": "action=buy&itemid=123"
+          #     })
+          # end
 
         else
           reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
