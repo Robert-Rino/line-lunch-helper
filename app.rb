@@ -95,7 +95,7 @@ post '/callback' do
           puts response
           reply_message = {
             "type": "text",
-            "text": response.body
+            "text": response.body.class
           }
           # reply_message ={
           #   "type": "text",
