@@ -95,7 +95,7 @@ post '/callback' do
           puts response
           reply_message = {
             "type": "text",
-            "text": JSON.parse(response.body.to_json)[:data]
+            "text": JSON.parse(response.body.to_json)
           }
           # reply_message ={
           #   "type": "text",
