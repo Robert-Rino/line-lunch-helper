@@ -92,10 +92,9 @@ post '/callback' do
           }
         when 'test'
           response = HTTParty.get("#{ENV["API_HOST"]}/api/v1/restaurants/1/dishs")
-          puts response
           reply_message = {
             "type": "text",
-            "text": response[:data]
+            "text": response["data"][0]["data"]["price"]
           }
           # reply_message ={
           #   "type": "text",
