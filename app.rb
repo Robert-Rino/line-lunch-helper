@@ -109,13 +109,13 @@ post '/callback' do
                   "data": "action=buy&itemid=123"}]
             }
           }
-          response['data'].each do |item|
-            message[:template][:actions].push({
-              "type": "postback",
-              "label": "#{item['data']['dishname']} #{item['data']['price']}\#{item['data']['unit']}}",
-              "data": "action=buy&itemid=123"
-              })
-          end
+          # response['data'].each do |item|
+          #   message[:template][:actions].push({
+          #     "type": "postback",
+          #     "label": "#{item['data']['dishname']} #{item['data']['price']}\#{item['data']['unit']}}",
+          #     "data": "action=buy&itemid=123"
+          #     })
+          # end
 
         else
           reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
