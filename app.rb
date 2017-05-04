@@ -96,26 +96,26 @@ post '/callback' do
             "type": "text",
             "text": response["data"][0]["data"]["price"]
           }
-          # reply_message ={
-          #   "type": "text",
-          #   "altText": "this is a buttons template",
-          #   "template": {
-          #       "type": "buttons",
-          #       "title": "Menu",
-          #       "text": "Please select",
-          #       "actions": [{
-          #         "type": "postback",
-          #         "label": "#{response['data']}",
-          #         "data": "action=buy&itemid=123"}]
-          #   }
-          # }
-          # response[:data].each do |item|
-          #   message[:template][:actions].push({
-          #     "type": "postback",
-          #     "label": "#{item[:data][:dishname]} #{item[:data][:price]}\#{item[:data][:unit]}}",
-          #     "data": "action=buy&itemid=123"
-          #     })
-          # end
+          reply_message ={
+            "type": "text",
+            "altText": "this is a buttons template",
+            "template": {
+                "type": "buttons",
+                "title": "Menu",
+                "text": "Please select",
+                "actions": [{
+                  "type": "postback",
+                  "label": "#{response['data']}",
+                  "data": "action=buy&itemid=123"}]
+            }
+          }
+          response['data'].each do |item|
+            message[:template][:actions].push({
+              "type": "postback",
+              "label": "#{item['data']['dishname']} #{item['data']['price']}\#{item['data']['unit']}}",
+              "data": "action=buy&itemid=123"
+              })
+          end
 
         else
           reply_message[:text] = '嗨～我是便當小幫手,我還看不懂您指令，你可以輸入help查詢我看得懂的指令喔 ！'
