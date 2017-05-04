@@ -91,7 +91,7 @@ post '/callback' do
             }
           }
         when 'test'
-          response = HTTParty.get("#{API_HOST}/api/v1/restaurants/1/dishs")
+          response = HTTParty.get("#{ENV["API_HOST"]}/api/v1/restaurants/1/dishs")
           reply_message ={
             "type": "template",
             "altText": "this is a buttons template",
