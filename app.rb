@@ -102,7 +102,7 @@ post '/callback' do
                 "text": "Please select",
                 "actions": [{
                   "type": "postback",
-                  "label": "#{response[:data[0][:data][:dishname]]}",
+                  "label": "#{response['data'][0]['data']['dishname']]}",
                   "data": "action=buy&itemid=123"}]
             }
           }
