@@ -97,7 +97,7 @@ post '/callback' do
             "text": response["data"][0]["data"]["price"]
           }
           reply_message ={
-            "type": "text",
+            "type": "template",
             "altText": "this is a buttons template",
             "template": {
                 "type": "buttons",
